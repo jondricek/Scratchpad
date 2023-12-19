@@ -19,13 +19,11 @@ jobs:
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       
-      - name: Run task if secret available. WRITES SECRET OUT! NOT GREAT!!
-        env:
-          my_secret: ${{ secrets.MY_SECRET }}
-        if: ${{ env.my_secret != '' }}
+      - name: Run task if environment variable is set
+        if: ${{ env.MY_VARIABLE != '' }}
         run: |
           mkdir output
-          echo "${{ secrets.MY_SECRET }}" > output/myfile.txt
+          echo "${{ env.MY_VARIABLE }}" > output/myfile.txt
         
       - name: List files in the repository
         run: |
